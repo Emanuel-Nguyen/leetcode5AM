@@ -1,22 +1,28 @@
-
 class NestedIterator(object):
     def __init__(self, nestedList):
-        self.flat = [] 
-        self.flatten(nestedList)  
-        self.index = 0  
+        self.flat = []  # List to store the flattened integers
+        self.flatten(nestedList)  # Flatten the nested list into a list of integers
+        self.index = 0  # Index to keep track of the current position in the flattened list
 
+    # Recursive function to flatten the nested list into a list of integers
     def flatten(self, nestedList):
         for item in nestedList:
-            if item.isInteger():
-                self.flat.append(item.getInteger())
+            if item.isInteger():  # Check if the item is an integer
+                self.flat.append(item.getInteger())  # Append the integer value to the 'flat' list
             else:
-                self.flatten(item.getList()) 
+                self.flatten(item.getList())  # Recursively flatten the nested list
 
+    # Return the next integer in the flattened list
     def next(self):
         if self.hasNext():
             self.index += 1
             return self.flat[self.index - 1]
 
+    # Check if there is a next integer in the flattened list
     def hasNext(self):
-        return self.index < len(self.flat)
-    
+        return self.index < len(self.flat) 
+
+"""I was struggling with the isinteger, getinteger, and getlist methods,
+as I couldn't find any documentation about them. 
+However, it turns out that LeetCode allows us to use the NestedInteger class as if it were already implemented, 
+so we are free to utilize it."""

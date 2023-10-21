@@ -1,0 +1,22 @@
+
+class NestedIterator(object):
+    def __init__(self, nestedList):
+        self.flat = [] 
+        self.flatten(nestedList)  
+        self.index = 0  
+
+    def flatten(self, nestedList):
+        for item in nestedList:
+            if item.isInteger():
+                self.flat.append(item.getInteger())
+            else:
+                self.flatten(item.getList()) 
+
+    def next(self):
+        if self.hasNext():
+            self.index += 1
+            return self.flat[self.index - 1]
+
+    def hasNext(self):
+        return self.index < len(self.flat)
+    

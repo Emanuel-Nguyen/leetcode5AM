@@ -1,5 +1,5 @@
 # leetcode5AM
-Welcome to the LeetCode 5AM Challenge repository! This repo tracks my journey in the 5AM coding challenge, preparing for an upcoming internship interview.
+Welcome to the LeetCode 5AM Challenge repository! This repo tracks my journey in the 5AM coding challenge (aim for intermediate problems to make it challenging and set the tone for the day hehe), preparing for an upcoming internship interview.
 
 # How to Use This Repository
 Explore my progress, learn new things, and give feedback. Join me in the coding challenge!

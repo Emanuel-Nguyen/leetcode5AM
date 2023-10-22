@@ -1,0 +1,10 @@
+ITH FirstLogin AS (
+    SELECT player_id, MIN(event_date) AS first_login_date
+    FROM Activity
+    GROUP BY player_id
+)
+
+SELECT ROUND(COUNT(DISTINCT A.player_id) * 1.0 / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction
+FROM Activity A
+JOIN FirstLogin B ON A.player_id = B.player_id
+WHERE A.event_date = DATEADD(DAY, 1, B.first_login_date);

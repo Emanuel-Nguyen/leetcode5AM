@@ -1,0 +1,35 @@
+--TAKEAWAY
+/*Scenario: You need to handle situations in SQL where a column might have NULL values and provide a default value when NULL is encountered. What SQL function or concept should you use?
+
+Answer: The IFNULL() or COALESCE() function can be used to handle potential NULL values and provide default values.
+Scenario: You want to retrieve the second-highest value from a column without using ranking functions like RANK() or DENSE_RANK(). How can you achieve this efficiently?
+
+Answer: You can use a subquery with DISTINCT values, ORDER BY, and the LIMIT clause to find the second-highest value.
+Scenario: You're working with a large dataset, and you want to limit the number of rows returned in your SQL query to improve efficiency. What SQL clause should you use?
+
+Answer: The LIMIT clause is used to limit the number of rows returned in a query.
+Scenario: You need to count the number of distinct values in a column in SQL. Which SQL concept or function can be employed for this purpose?
+
+Answer: The COUNT(DISTINCT column_name) function is used to count the number of distinct values in a column.
+Scenario: You want to add explanatory comments to your SQL code to document your queries for future reference. What symbols or syntax should you use for adding comments in SQL?
+ 
+Scenario: You're working with a scenario where you need to handle cases where there's only one distinct value in a column and return a specific result in such situations. Which SQL function or concept can help you achieve this?
+
+Answer: To handle cases where there's only one distinct value in a column, you can use a conditional statement (e.g., CASE) along with the COUNT(DISTINCT column_name) function to check the count of distinct values and provide a specific result when the count is 1.
+*/.
+
+
+WITH cte AS (
+    SELECT Salary, RANK() OVER (ORDER BY Salary DESC) AS rank_salary
+    FROM Employee
+)
+SELECT
+    CASE
+        WHEN 2 NOT IN (SELECT rank_salary FROM cte) THEN 'null'
+        ELSE Salary
+    END AS SecondHighestSalary
+FROM cte
+WHERE rank_salary = 2;
+
+--much more efficient approach
+select ifnull(null,(select distinct salary from employee order by salary desc limit 1 offset 1)) as SecondHighestSalary

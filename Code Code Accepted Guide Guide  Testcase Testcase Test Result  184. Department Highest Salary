@@ -1,0 +1,3 @@
+Employee e join cte on e.departmentID=cte.id and 
+                        cte.salary=e.salary
+          join Department d on e.departmentID=d.id

@@ -1,0 +1,25 @@
+
+/* Write your T-SQL query statement below */
+--create cte with column is categories and id
+with cte as(
+    select account_id, case
+        when income<20000 then 'Low Salary'
+        when income <= 50000 then 'Average Salary'
+        else 'High Salary'
+        end as category
+        from Accounts
+),
+--create cte with all the categories
+ full_cte as(
+    select 'High Salary' as category union
+    select 'Low Salary' as category union
+    select 'Average Salary' as category
+    )
+
+--left join full and cte on full.caegory equal cte.category
+--full left join cte on full.category=cte.category
+--select full.category, count(cte.category)[if there is no cte.account, it will return 0. if use count *, it will return 1 ] group by full.category
+select full_cte.category, 
+        count(cte.category) as accounts_count
+        from full_cte left join cte on full_cte.category=cte.category
+        group by full_cte.category

@@ -1,0 +1,22 @@
+/* Write your T-SQL query statement below */
+
+
+
+--My first pproach: create 2 temp table, then pic a help of each
+--but it turn out tthat view and subquieries dont suppport order by
+
+--joined table 1-2 (on id2=id1+1 and id1%2=1)right joinjoint3 on 
+--id3=id1-1 and id3%2==0
+
+
+--select id1 case name2 not null, name 2, else name 3
+SELECT s1.id AS id,
+       CASE
+           WHEN s2.name IS NOT NULL THEN s2.name
+           WHEN s3.name IS NOT NULL THEN s3.name
+           ELSE s1.name
+       END AS student
+FROM Seat s1
+LEFT JOIN Seat s2 ON s1.id = s2.id - 1 AND s1.id % 2 = 0
+LEFT JOIN Seat s3 ON s1.id = s3.id + 1 AND s3.id % 2 = 1
+ORDER BY id ASC;

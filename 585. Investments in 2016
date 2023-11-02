@@ -14,5 +14,5 @@ where pid in #select rows with different location
 group by lat, lon
 having count(*) =1)
 
-
+#discover much nore efficent approach with the same logic
 

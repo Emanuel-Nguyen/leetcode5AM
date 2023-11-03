@@ -1,0 +1,23 @@
+
+--select all invitation 
+with cte as (
+    select requester_id as f1, 
+accepter_id as f2 
+    from RequestAccepted
+union all
+select accepter_id as f1, 
+ requester_id as f2 
+    from RequestAccepted
+)
+
+
+--select top 1 ,f1, count f1, just tak e into account invitaion_time =1 
+select top 1 f1 as id, count(f1) as num
+from  (
+    --select all the (f1,f2) and count of the distinct pair 
+select f1, f2, COUNT(*) OVER (PARTITION BY f1,f2) as invitation
+from cte  
+) as sub
+WHERE invitation=1
+group by f1
+order by num desc

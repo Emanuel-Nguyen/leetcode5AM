@@ -1,0 +1,14 @@
+--select department, salary with rank <4 group by department
+
+--ctewith rank column
+with cte as(
+select d.name as Department, e.departmentID, e.name as Employee,e.salary as Salary, dense_RANK() OVER (PARTITION BY e.departmentID ORDER BY e.salary DESC) as rank_col
+from Employee  e
+join Department d
+on e.departmentID=d.id)
+
+select Department , Employee , Salary 
+from cte 
+where rank_col<4
+
+--MORE EFFICENT APPROACH: USINg Correlated SubQueries
